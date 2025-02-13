@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/*  bg-zinc-900*/
+body {
+  @apply h-full overflow-x-hidden;
+}
+
+#__next {
+  @apply h-full;
+}
+
+html {
+  @apply h-full;
+}
+
+/* styles.css */
+.my-custom-table-class .rdt_TableRow:hover {
+  background-color: #f4f4f4 !important; /* Light gray color on row hover */
+}
+
+.my-custom-pagination-icon-class:hover {
+  background: #d1d5db; /* Hover effect for pagination icon */
+}
+
+.my-custom-pagination-button-class:hover {
+  background: #d1d5db; /* Hover effect for page button */
+}

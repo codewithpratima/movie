@@ -104,7 +104,7 @@ export default function Layout({ children }) {
               </h2>
             </div>
 
-            <div className="flex items-center md:pr-8 md:space-x-8 z-50">
+            {/* <div className="flex items-center md:pr-8 md:space-x-8 z-50">
               <Menu as="div" className="relative inline-block text-left">
                 <Menu.Button className="flex rounded-full bg-gray-700 text-sm focus:outline-none">
                   <span className="sr-only">Open user menu</span>
@@ -142,7 +142,7 @@ export default function Layout({ children }) {
                   </Menu.Items>
                 </Transition>
               </Menu>
-            </div>
+            </div> */}
           </div>
 
           {/* <Transition.Root show={mobileMenuOpen} as={Fragment}>

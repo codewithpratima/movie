@@ -25,7 +25,6 @@ const MyDataTable = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<Movie[]>([]);
 
-  const [error, setError] = useState("");
   const router = useRouter();
 
   useEffect(() => {

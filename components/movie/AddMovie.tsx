@@ -26,11 +26,11 @@ export default function AdminPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     setLoading(true);
     setMessage("");
     setError("");
-  
+
     try {
       const movieRes = await fetch("/api/movies", {
         method: "POST",
@@ -48,7 +48,8 @@ export default function AdminPage() {
       const movieData = await movieRes.json();
       const movieId: string = movieData._id;
 
-      if (!movieId || typeof movieId !== "string") throw new Error("Invalid movie ID format.");
+      if (!movieId || typeof movieId !== "string")
+        throw new Error("Invalid movie ID format.");
       if (!videoFile) throw new Error("Please select a video file.");
       if (!imageFile) throw new Error("Please select an image file.");
 
@@ -63,12 +64,12 @@ export default function AdminPage() {
       });
 
       const uploadData = await uploadRes.json();
-      if (!uploadRes.ok) throw new Error(uploadData.error || "Failed to upload files.");
+      if (!uploadRes.ok)
+        throw new Error(uploadData.error || "Failed to upload files.");
 
       setVideoUrl(uploadData.videoUrl);
       setImageUrl(uploadData.imageUrl);
       setMessage("Movie added and files uploaded successfully!");
-
     } catch (error: any) {
       setError(error.message || "An error occurred.");
     } finally {
@@ -93,53 +94,118 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="h-screen w-full bg-black flex justify-center items-center">
-      <div className="p-4 max-w-lg bg-white">
-        <h1 className="text-2xl font-bold mb-4">Add Movie</h1>
-        
-        {/* ✅ Fixed: `onSubmit={handleSubmit}` should not pass any arguments */}
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <input name="name" value={form.name} onChange={handleChange} placeholder="Movie Name" className="border p-2 w-full" required />
-          <input name="cast" value={form.cast} onChange={handleChange} placeholder="Cast" className="border p-2 w-full" required />
-          <input name="singer" value={form.singer} onChange={handleChange} placeholder="Singer" className="border p-2 w-full" required />
-          <input name="releaseDate" type="date" value={form.releaseDate} onChange={handleChange} className="border p-2 w-full" required />
-          <input name="budget" type="number" value={form.budget} onChange={handleChange} placeholder="Budget" className="border p-2 w-full" required />
+    // <div className="h-screen w-full bg-black flex justify-center items-center">
+    <div className="relative netflix-bg h-full w-full bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/f268d374-734d-474f-ad13-af5ba87ef9fc/web/IN-en-20250210-TRIFECTA-perspective_92338d5d-6ccd-4b1a-8536-eb2b0240a55e_large.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
+      <div className="bg-black w-full h-full lg:bg-opacity-50">
+        <div className="flex justify-center items-center h-screen w-full">
+          <div className="p-4 max-w-lg bg-white">
+            <h1 className="text-2xl font-bold mb-4">Add Movie</h1>
 
-          <input type="file" accept="video/*" onChange={handleFileChange} disabled={loading} />
-          {error && <div className="error-message">{error}</div>}
+            {/* ✅ Fixed: `onSubmit={handleSubmit}` should not pass any arguments */}
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <input
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Movie Name"
+                className="border p-2 w-full"
+                required
+              />
+              <input
+                name="cast"
+                value={form.cast}
+                onChange={handleChange}
+                placeholder="Cast"
+                className="border p-2 w-full"
+                required
+              />
+              <input
+                name="singer"
+                value={form.singer}
+                onChange={handleChange}
+                placeholder="Singer"
+                className="border p-2 w-full"
+                required
+              />
+              <input
+                name="releaseDate"
+                type="date"
+                value={form.releaseDate}
+                onChange={handleChange}
+                className="border p-2 w-full"
+                required
+              />
+              <input
+                name="budget"
+                type="number"
+                value={form.budget}
+                onChange={handleChange}
+                placeholder="Budget"
+                className="border p-2 w-full"
+                required
+              />
+              <label
+                htmlFor="image"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Upload Video
+              </label>
+              <input
+                type="file"
+                accept="video/*"
+                onChange={handleFileChange}
+                disabled={loading}
+              />
+              {error && <div className="error-message">{error}</div>}
 
-          {videoUrl && (
-            <div className="video-preview">
-            
-              <video controls>
-                <source src={videoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          )}
+              {videoUrl && (
+                <div className="video-preview">
+                  <video controls>
+                    <source src={videoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              )}
 
-        
-          <input type="file" accept="image/*" onChange={handleImageChange} disabled={loading} />
-          {error && <div className="error-message">{error}</div>}
+              <label
+                htmlFor="image"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Upload Thumbnail
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                disabled={loading}
+              />
+              {error && <div className="error-message">{error}</div>}
 
-          {imageUrl && (
-            <div className="image-preview">
-          
-              <picture>
-                <source srcSet={imageUrl} type="image/webp" />
-                <source srcSet={imageUrl} type="image/png" />
-                <img src={imageUrl} alt="Uploaded movie poster" />
-              </picture>
-            </div>
-          )}
+              {imageUrl && (
+                <div className="image-preview">
+                  <picture>
+                    <source srcSet={imageUrl} type="image/webp" />
+                    <source srcSet={imageUrl} type="image/png" />
+                    <img src={imageUrl} alt="Uploaded movie poster" />
+                  </picture>
+                </div>
+              )}
 
-          {/* ✅ Fixed: No need for `onClick` here, submission is handled by `onSubmit` */}
-          <button type="submit" className="bg-red-600 py-3 hover:bg-green-700 text-white p-2 w-full" disabled={loading}>
-            {loading ? "Saving..." : "Save"}
-          </button>
-        </form>
+              {/* ✅ Fixed: No need for `onClick` here, submission is handled by `onSubmit` */}
+              <button
+                type="submit"
+                className="bg-red-600 py-3 hover:bg-green-700 text-white p-2 w-full"
+                disabled={loading}
+              >
+                {loading ? "Saving..." : "Save"}
+              </button>
+            </form>
 
-        {message && <p className="mt-3 text-center text-green-500">{message}</p>}
+            {message && (
+              <p className="mt-3 text-center text-green-500">{message}</p>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

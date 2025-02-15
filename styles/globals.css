@@ -26,3 +26,8 @@ html {
 .my-custom-pagination-button-class:hover {
   background: #d1d5db; /* Hover effect for page button */
 }
+
+* {
+  padding: 0;
+  margin: 0;
+}

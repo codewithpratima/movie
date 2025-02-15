@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import DataTable, { TableColumn } from "react-data-table-component";
 import React from "react";
@@ -22,7 +22,6 @@ interface Movie {
 
 const MyDataTable = () => {
   const [data, setData] = useState<Movie[]>([]);
-  console.log(data, "data is comming")
   const [loading, setLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -56,32 +55,13 @@ const MyDataTable = () => {
       });
 
       setData(mergedData);
-      
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       setLoading(false);
     }
   };
-  const handleDelete = async (id: string) => {
-    try {
-      const res = await axios.delete(`/api/movies?id=${id}`);
-      console.log("Delete response:", res.data);
-
-      setMovies((prevMovies) => prevMovies.filter((movie) => movie._id !== id));
-      fetchData();
-    } catch (err: any) {
-      console.error("Error deleting movie:", err.response?.data || err.message);
-      alert(
-        `Error deleting movie: ${err.response?.data?.error || err.message}`
-      );
-    }
-  };
-
-  const handleEdit = (id: string) => {
-    console.log("hello");
-    router.push(`/edit/${id}`);
-  };
+ 
 
   const columns: TableColumn<Movie>[] = [
     {
@@ -127,7 +107,6 @@ const MyDataTable = () => {
       sortable: true,
     },
   ];
-  const carouselRef = useRef(null);
 
   return (
     <div className="p-4">
@@ -139,20 +118,8 @@ const MyDataTable = () => {
         pagination
         highlightOnHover
       />
-       <div
-        ref={carouselRef}
-        className="flex gap-4 overflow-x-scroll no-scrollbar scroll-smooth"
-      >
-        {/* {data.map((movie) => ( */}
-         
-            <video width="100" controls>
-            <source src={movie.videoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-       
-        {/* ))} */}
-      </div>
     </div>
+   
   );
 };
 

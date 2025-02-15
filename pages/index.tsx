@@ -5,7 +5,7 @@ const index = () => {
   return (
     <div className="flex w-[100%] gap-x-5 justity-between">
       <div className="bg-gray-400 w-full">
-        <MovieData />
+      <MovieData />
       </div>
     </div>
   );

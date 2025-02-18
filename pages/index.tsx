@@ -11,6 +11,12 @@ import React from "react";
 
 import moment from "moment";
 import { useRouter } from "next/router";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Welcome to my website",
+  description: "Description of my website",
+};
 
 interface Movie {
   _id: string;
@@ -72,7 +78,9 @@ const MyDataTable = () => {
       setLoading(false);
     }
   };
-
+  const handlePrice = () => {
+    router.push("/price");
+  };
   const columns: TableColumn<Movie>[] = [
     {
       name: "Movie Name",
@@ -158,12 +166,13 @@ const MyDataTable = () => {
           </div>
         </nav>
 
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white" >
           <h2 className="text-4xl font-bold">
             Unlimited movies, TV shows and more
           </h2>
           <p className="text-lg mt-2">Starts at ₹149. Cancel at any time.</p>
-          <button className="mt-5 bg-red-600 text-white px-6 py-3 text-lg font-bold rounded hover:bg-red-700">
+          <button className="mt-5 bg-red-600 text-white px-6 py-3 text-lg font-bold rounded hover:bg-red-700"
+          onClick={()=>handlePrice()} >
             Restart Your Membership
           </button>
         </div>

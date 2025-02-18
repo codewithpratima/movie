@@ -115,7 +115,7 @@ const MyDataTable = () => {
       name: "Video",
       cell: (row: Movie) =>
         row.videoUrl ? (
-          <video width="100" controls>
+          <video width="200" height="300"className="m-5" controls>
             <source src={row.videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

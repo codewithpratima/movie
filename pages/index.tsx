@@ -113,7 +113,22 @@ const MyDataTable = () => {
       sortable: true,
     },
   ];
-  const carouselRef = useRef(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const scroll = (direction: "left" | "right") => {
+    if (carouselRef.current) {
+      const scrollAmount = 400; // Adjust for faster scrolling
+      carouselRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    if (carouselRef.current) {
+      event.preventDefault();
+      carouselRef.current.scrollLeft += event.deltaY * 2; // Adjust multiplier for speed
+    }
+  };
 
   return (
     <div className="relative">
@@ -180,10 +195,16 @@ const MyDataTable = () => {
 
       <div className="ml-20 mr-20">
         <h2 className="text-xl font-semibold mb-4">Trending Now</h2>
-
+        <button
+        onClick={() => scroll("left")}
+        className="absolute left-2 top-[85%] -translate-y-1/2 bg-black/50 p-3 rounded-full z-10"
+      >
+        ◀
+      </button>
         <div
           ref={carouselRef}
           className="flex gap-4 overflow-x-scroll no-scrollbar scroll-smooth"
+           onWheel={handleWheel}
         >
           {data?.map((movie) => (
             <video
@@ -197,6 +218,12 @@ const MyDataTable = () => {
             </video>
           ))}
         </div>
+        <button
+        onClick={() => scroll("right")}
+        className="absolute right-2 top-[85%] -translate-y-1/2 bg-black/50 p-3 rounded-full z-10"
+      >
+        ▶
+      </button>
       </div>
     </div>
   );

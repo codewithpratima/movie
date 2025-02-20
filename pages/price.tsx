@@ -62,7 +62,7 @@ export default function PricingPlans() {
           </div>
         ))}
       </div> 
-      <div className="mt-6 bg-red-700 text-white">Next</div>
+      < button className="mt-6 bg-red-700 w-10 h-5 font-semibold text-xl text-white">Next</button>
     </div>
   );
 }

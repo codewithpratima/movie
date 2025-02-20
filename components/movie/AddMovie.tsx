@@ -95,7 +95,7 @@ export default function AdminPage() {
 
   return (
     // <div className="h-screen w-full bg-black flex justify-center items-center">
-    <div className="relative top-0 netflix-bg h-full w-full bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/f268d374-734d-474f-ad13-af5ba87ef9fc/web/IN-en-20250210-TRIFECTA-perspective_92338d5d-6ccd-4b1a-8536-eb2b0240a55e_large.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
+    <div className=" top-0 netflix-bg h-full w-full bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/f268d374-734d-474f-ad13-af5ba87ef9fc/web/IN-en-20250210-TRIFECTA-perspective_92338d5d-6ccd-4b1a-8536-eb2b0240a55e_large.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
       <div className="bg-black w-full h-full lg:bg-opacity-50 z-0">
       {imageUrl && (
                 <div className="image-preview">
@@ -107,7 +107,7 @@ export default function AdminPage() {
                 </div>
               )}
         <div className="flex justify-center items-center h-screen w-full">
-          <div className="p-4 max-w-lg bg-white"> 
+          <div className="p-4 max-w-lg bg-white">
          
             <h1 className="text-2xl font-bold mb-4">Add Movie</h1>
 
@@ -204,7 +204,7 @@ export default function AdminPage() {
               {/* ✅ Fixed: No need for `onClick` here, submission is handled by `onSubmit` */}
               <button
                 type="submit"
-                className="bg-red-600 py-3 hover:bg-green-700 text-white p-2 w-full"
+                className="bg-black py-3 hover:bg-red-700 text-white p-2 w-full"
                 disabled={loading}
               >
                 {loading ? "Saving..." : "Save"}

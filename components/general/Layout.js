@@ -91,7 +91,7 @@ export default function Layout({ children }) {
     <>
       <div className="flex h-screen flex-col">
         <div className="flex min-h-0 flex-1 overflow-hidden">
-          <div className="hidden md:fixed md:inset-y-0 md:flex md:w-32 md:flex-col pt-16">
+          <div className="hidden md:fixed md:inset-y-0 md:flex md:w-32 md:flex-col ">
             <div className="flex flex-grow flex-col overflow-y-auto bg-gray-800">
               <div className=" flex flex-grow flex-col bg-white">
                 <nav className="px-2 py-0">

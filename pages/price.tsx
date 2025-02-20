@@ -1,68 +1,41 @@
 'use client';
 
 import { useState } from 'react';
+import { Lock } from 'lucide-react';
 
-const plans = [
+const paymentMethods = [
   {
-    name: 'Mobile',
-    resolution: '480p',
-    price: 149,
-    quality: 'Fair',
-    devices: 'Mobile phone, tablet',
+    name: 'Credit or Debit Card',
+    icons: ['/visa.png', '/mastercard.png'],
   },
   {
-    name: 'Basic',
-    resolution: '720p',
-    price: 199,
-    quality: 'Good',
-    devices: 'TV, computer, mobile phone, tablet',
-    mostPopular: true,
-  },
-  {
-    name: 'Standard',
-    resolution: '1080p',
-    price: 499,
-    quality: 'Great',
-    devices: 'TV, computer, mobile phone, tablet',
-  },
-  {
-    name: 'Premium',
-    resolution: '4K + HDR',
-    price: 649,
-    quality: 'Best',
-    devices: 'TV, computer, mobile phone, tablet',
+    name: 'UPI AutoPay',
+    icons: ['/bhim.png', '/paytm.png', '/amazonpay.png', '/gpay.png'],
   },
 ];
 
-export default function PricingPlans() {
-  const [selectedPlan, setSelectedPlan] = useState('Basic');
-
+export default function PaymentOptions() {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center p-6">
-      <h1 className="text-4xl font-bold text-gray-900">Choose the plan that’s right for you</h1>
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-6 max-w-4xl w-full">
-        {plans.map((plan) => (
-          <div
-            key={plan.name}
-            className={`p-6 border rounded-lg shadow-lg text-center cursor-pointer transition-all ${
-              selectedPlan === plan.name ? 'border-purple-500 shadow-xl' : 'border-gray-300'
-            }`}
-            onClick={() => setSelectedPlan(plan.name)}
-          >
-            {plan.mostPopular && (
-              <div className="bg-purple-500 text-white text-xs font-bold uppercase p-1 rounded-md mb-2">
-                Most Popular
-              </div>
-            )}
-            <h2 className="text-xl font-semibold text-gray-800">{plan.name}</h2>
-            <p className="text-sm text-gray-600">{plan.resolution}</p>
-            <p className="text-2xl font-bold text-gray-900 mt-2">₹{plan.price}</p>
-            <p className="text-sm text-gray-600 mt-2">Video and sound quality: {plan.quality}</p>
-            <p className="text-sm text-gray-600 mt-2">Devices: {plan.devices}</p>
+    <div className="min-h-screen bg-white flex flex-col items-center p-6 text-center">
+      <h1 className="text-4xl font-bold text-gray-900">Choose how to pay</h1>
+      <p className="text-gray-600 mt-2">Your payment is encrypted and you can change your payment method at any time.</p>
+      <p className="font-semibold mt-2">Secure for peace of mind.<br />Cancel easily online.</p>
+      <div className="mt-6 flex items-center text-sm text-gray-500">
+        <span>End-to-end encrypted</span>
+        <Lock className="ml-1 w-4 h-4 text-yellow-500" />
+      </div>
+      <div className="mt-6 w-full max-w-md">
+        {paymentMethods.map((method, index) => (
+          <div key={index} className="flex justify-between items-center p-4 border rounded-lg shadow-lg mb-4 cursor-pointer hover:shadow-xl">
+            <span className="text-gray-800 font-medium">{method.name}</span>
+            <div className="flex space-x-2">
+              {method.icons.map((icon, i) => (
+                <img key={i} src={icon} alt="payment method" className="h-6" />
+              ))}
+            </div>
           </div>
         ))}
-      </div> 
-      < button className="mt-6 bg-red-700 w-10 h-5 font-semibold text-xl text-white">Next</button>
+      </div>
     </div>
   );
 }

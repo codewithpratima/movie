@@ -20,6 +20,7 @@
     "formidable": "^3.5.2",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.475.0",
     "moment": "^2.30.1",
     "mongoose": "^8.9.7",
     "next": "^15.1.5",

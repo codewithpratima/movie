@@ -2,9 +2,11 @@ import Input from "@/components/Input";
 import { useCallback, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 
 export default function Auth() {
   const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -16,27 +18,54 @@ export default function Auth() {
     );
   }, []);
 
+  // const login = useCallback(async () => {
+  //   try {
+  //     await axios.post("/api/auth/login", {
+  //       email,
+  //       password,
+  //     });
+  //     router.push("/");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [email, password, router]);
+  // 8;
+
+  // const register = useCallback(async () => {
+  //   try {
+  //     await axios.post("/api/auth/signup", {
+  //       email,
+  //       name,
+  //       password,
+  //     });
+  //     await login();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [email, name, password, login]);
+
   const login = useCallback(async () => {
     try {
-      await axios.post("/api/auth/login", {
+      await signIn("credentials", {
         email,
         password,
+        redirect: false,
+        callbackUrl: "/",
       });
       router.push("/");
     } catch (error) {
       console.log(error);
     }
   }, [email, password, router]);
-  8;
 
   const register = useCallback(async () => {
     try {
-      await axios.post("/api/auth/signup", {
+      await axios.post("/api/register", {
         email,
         name,
         password,
       });
-      await login();
+      login();
     } catch (error) {
       console.log(error);
     }

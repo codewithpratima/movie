@@ -30,22 +30,22 @@ export default function Tab() {
   }
 
   const [pillTabs, setPillTabs] = useState([
-    {
-      name: "Add Movie",
-      id: 4,
-      code: "add-movie",
-      href: "/admin/add-movie",
-      icon: CalendarIcon,
-      current: false,
-    },
-    {
-      name: "Delete Movie",
-      id: 4,
-      code: "delete-movie",
-      href: "/admin/delete-movie",
-      icon: CalendarIcon,
-      current: false,
-    },
+      // {
+      //   name: "Add Movie",
+      //   id: 4,
+      //   code: "add-movie",
+      //   href: "/admin/add-movie",
+      //   icon: CalendarIcon,
+      //   current: false,
+      // },
+      // {
+      //   name: "Delete Movie",
+      //   id: 5,
+      //   code: "delete-movie",
+      //   href: "/admin/delete-movie",
+      //   icon: CalendarIcon,
+      //   current: false,
+      // },
   ]);
 
   useEffect(() => {

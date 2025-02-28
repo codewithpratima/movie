@@ -125,6 +125,14 @@ export default function Auth() {
             >
               {variant == "login" ? "Login" : "Sign up"}
             </button>
+
+            {/* <button className="bg-blue-500 text-white p-2 m-2" onClick={() => signIn("google")}>
+            Sign in with Google
+          </button>
+          <button className="bg-gray-800 text-white p-2" onClick={() => signIn("github")}>
+            Sign in with GitHub
+          </button> */}
+
             <p className="text-neutral-500 mt-12">
               {variant == "login"
                 ? "First time using Netflix?"

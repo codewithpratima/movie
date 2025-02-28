@@ -24,13 +24,14 @@ export const config = {
 
 const uploadVideo = async (req: NextApiRequest, res: NextApiResponse) => {
   // Only allow POST requests
+  await dbConnect();
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
     // Connect to the database
-    await dbConnect();
+  
     console.log("Cloudinary Config Loaded ✅");
 
     // Set up Formidable to handle file uploads

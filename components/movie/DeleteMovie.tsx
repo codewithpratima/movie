@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
+import { useRef } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import React from "react";
 
@@ -13,8 +13,8 @@ import axios from "axios";
 interface Movie {
   _id: string;
   name: string;
-  cast: [string];
-  singer: [string];
+  cast: string[];
+  singer: string[];
   budget: string;
   releaseDate: Date;
   videoUrl?: string;
@@ -24,6 +24,11 @@ const MyDataTable = () => {
   const [data, setData] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<Movie[]>([]);
+  const editRef = useRef<HTMLDialogElement>(null);
+ 
+  const [editData, setEditData] = useState<Movie | null>(null);
+
+
 
   const router = useRouter();
 
@@ -55,7 +60,7 @@ const MyDataTable = () => {
 
       setData(mergedData);
     } catch (error) {
-      console.error("Error fetching data:", error);
+     
     } finally {
       setLoading(false);
     }
@@ -75,12 +80,51 @@ const MyDataTable = () => {
     }
   };
 
-  const handleEdit = (id: string) => {
-    console.log("hello");
-    router.push(`/edit/${id}`);
-  };
+  
+  async function handleEdit(id: string) {
+    try {
+      const response = await fetch(`/api/movies?id=${id}`);
+      const result: Movie = await response.json(); // Ensure TypeScript knows it's a Movie object
+  
+      if (response.ok) {
+        setEditData(result); // ✅ Store the movie object
+        showEditDialog(); // ✅ Open the modal
+      } else {
+        console.error("Error fetching movie:", result);
+      }
+    } catch (error) {
+      console.error("Failed to fetch movie:", error);
+    }
+  }
+  
 
-  const columns: TableColumn<Movie>[] = [
+  async function handleUpdate() {
+    if (!editData) return; // Ensure editData is not null
+  
+    try {
+      const response = await fetch(`/api/movies?id=${editData._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editData),
+      });
+  
+      if (response.ok) {
+        alert("Movie updated successfully!");
+        fetchData();
+        closeEdit();
+      } else {
+        console.error("Update failed:", await response.json());
+      }
+    } catch (error) {
+      console.error("Error updating movie:", error);
+    }
+  }
+  
+  
+  
+
+  const 
+  columns: TableColumn<Movie>[] = [
     {
       name: "Name",
       selector: (row: Movie) => row.name,
@@ -125,8 +169,8 @@ const MyDataTable = () => {
     },
     {
       name: "Actions",
-      selector: (row: RowData) => row._id,
-      cell: (row: RowData) => (
+      selector: (row: Movie) => row._id,
+      cell: (row: Movie) => (
         <div className="flex flex-col sm:flex-row gap-2 text-xs">
           <button
             className="flex-1 sm:flex-auto min-w-[40px] px-2 py-1 bg-white text-gray-800 rounded-md border border-gray-300
@@ -150,18 +194,94 @@ const MyDataTable = () => {
     },
   ];
 
+  const showEditDialog = () => {
+    editRef.current?.showModal();
+  };
+
+  const closeEdit = () => {
+    setEditData(null);
+    editRef.current?.close(); 
+  };
+  
   return (
     <div className="p-4">
       <h2 className="text-xl font-semibold mb-4">Movies & Videos</h2>
       <DataTable
+    
         columns={columns}
         data={data}
         progressPending={loading}
         pagination
         highlightOnHover
       />
+     <dialog ref={editRef} className="rounded-lg shadow-lg bg-white p-6">
+  <h2 className="text-lg font-semibold mb-4">Edit Movie</h2>
+  {editData && (
+  <form>
+    <label className="block mb-2">Name:</label>
+    <input
+      type="text"
+      value={editData.name || ""}
+      onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+      className="border p-2 w-full"
+    />
+
+    <label className="block mt-3">Singer:</label>
+    <input
+      type="text"
+      value={editData.singer?.join(", ") || ""}
+      onChange={(e) =>
+        setEditData({ ...editData, singer: e.target.value.split(", ") })
+      }
+      className="border p-2 w-full"
+    />
+
+    <label className="block mt-3">Cast:</label>
+    <input
+      type="text"
+      value={editData.cast?.join(", ") || ""}
+      onChange={(e) =>
+        setEditData({ ...editData, cast: e.target.value.split(", ") })
+      }
+      className="border p-2 w-full"
+    />
+
+    <label className="block mt-3">Budget:</label>
+    <input
+      type="text"
+      value={editData.budget || ""}
+      onChange={(e) => setEditData({ ...editData, budget: e.target.value })}
+      className="border p-2 w-full"
+    />
+
+    <label className="block mt-3">Release Date:</label>
+    <input
+      type="date"
+      value={editData.releaseDate ? moment(editData.releaseDate).format("YYYY-MM-DD") : ""}
+      onChange={(e) =>
+        setEditData({ ...editData, releaseDate: new Date(e.target.value) })
+      }
+      className="border p-2 w-full"
+    />
+
+    {/* Save & Cancel Buttons */}
+    <div className="flex justify-end gap-2 mt-4">
+      <button type="button" className="bg-gray-300 px-4 py-2 rounded" onClick={closeEdit}>
+        Cancel
+      </button>
+      <button type="button" className="bg-blue-500 text-white px-4 py-2 rounded" onClick={handleUpdate}>
+        Save Changes
+      </button>
+    </div>
+  </form>
+)}
+
+
+</dialog>
+
     </div>
   );
 };
+
 
 export default MyDataTable;

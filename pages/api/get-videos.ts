@@ -3,6 +3,7 @@ import dbConnect from "../../lib/db";
 import { Video } from "../../models/Video";
 
 const getVideos = async (req: NextApiRequest, res: NextApiResponse) => {
+  await dbConnect();
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
   }

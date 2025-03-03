@@ -136,7 +136,7 @@ const MyDataTable = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src="/netbg.jpg" // Replace with your image path
+            src="https://assets.nflxext.com/ffe/siteui/vlv3/f268d374-734d-474f-ad13-af5ba87ef9fc/web/IN-en-20250210-TRIFECTA-perspective_92338d5d-6ccd-4b1a-8536-eb2b0240a55e_large.jpg" // Replace with your image path
             alt="Netflix Background"
             layout="fill"
             objectFit="cover"
@@ -181,13 +181,15 @@ const MyDataTable = () => {
           </div>
         </nav>
 
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white" >
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
           <h2 className="text-4xl font-bold">
             Unlimited movies, TV shows and more
           </h2>
           <p className="text-lg mt-2">Starts at ₹149. Cancel at any time.</p>
-          <button className="mt-5 bg-red-600 text-white px-6 py-3 text-lg font-bold rounded hover:bg-red-700"
-          onClick={()=>handlePrice()} >
+          <button
+            className="mt-5 bg-red-600 text-white px-6 py-3 text-lg font-bold rounded hover:bg-red-700"
+            onClick={() => handlePrice()}
+          >
             Restart Your Membership
           </button>
         </div>
@@ -196,15 +198,15 @@ const MyDataTable = () => {
       <div className="ml-20 mr-20">
         <h2 className="text-xl font-semibold mb-4">Trending Now</h2>
         <button
-        onClick={() => scroll("left")}
-        className="absolute left-2 top-[85%] -translate-y-1/2 bg-black/50 p-3 rounded-full z-10"
-      >
-        ◀
-      </button>
+          onClick={() => scroll("left")}
+          className="absolute left-2 top-[85%] -translate-y-1/2 bg-black/50 p-3 rounded-full z-10"
+        >
+          ◀
+        </button>
         <div
           ref={carouselRef}
           className="flex gap-4 overflow-x-scroll no-scrollbar scroll-smooth"
-           onWheel={handleWheel}
+          onWheel={handleWheel}
         >
           {data?.map((movie) => (
             <video
@@ -219,11 +221,11 @@ const MyDataTable = () => {
           ))}
         </div>
         <button
-        onClick={() => scroll("right")}
-        className="absolute right-2 top-[85%] -translate-y-1/2 bg-black/50 p-3 rounded-full z-10"
-      >
-        ▶
-      </button>
+          onClick={() => scroll("right")}
+          className="absolute right-2 top-[85%] -translate-y-1/2 bg-black/50 p-3 rounded-full z-10"
+        >
+          ▶
+        </button>
       </div>
     </div>
   );

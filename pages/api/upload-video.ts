@@ -31,7 +31,7 @@ const uploadVideo = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     // Connect to the database
-  
+
     console.log("Cloudinary Config Loaded ✅");
 
     // Set up Formidable to handle file uploads

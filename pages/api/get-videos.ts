@@ -9,7 +9,7 @@ const getVideos = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const videos = await Video.find(); 
+    const videos = await Video.find();
     res.status(200).json(videos);
   } catch (error) {
     console.error(error);

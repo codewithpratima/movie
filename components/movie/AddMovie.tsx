@@ -97,18 +97,17 @@ export default function AdminPage() {
     // <div className="h-screen w-full bg-black flex justify-center items-center">
     <div className=" top-0 netflix-bg h-full w-full bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/f268d374-734d-474f-ad13-af5ba87ef9fc/web/IN-en-20250210-TRIFECTA-perspective_92338d5d-6ccd-4b1a-8536-eb2b0240a55e_large.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
       <div className="bg-black w-full h-full lg:bg-opacity-50 z-0">
-      {imageUrl && (
-                <div className="image-preview">
-                  <picture>
-                    <source srcSet={imageUrl} type="image/webp" />
-                    <source srcSet={imageUrl} type="image/png" />
-                    <img src={imageUrl} alt="Uploaded movie poster" />
-                  </picture>
-                </div>
-              )}
+        {imageUrl && (
+          <div className="image-preview">
+            <picture>
+              <source srcSet={imageUrl} type="image/webp" />
+              <source srcSet={imageUrl} type="image/png" />
+              <img src={imageUrl} alt="Uploaded movie poster" />
+            </picture>
+          </div>
+        )}
         <div className="flex justify-center items-center h-screen w-full">
           <div className="p-4 max-w-lg bg-white">
-         
             <h1 className="text-2xl font-bold mb-4">Add Movie</h1>
 
             {/* ✅ Fixed: `onSubmit={handleSubmit}` should not pass any arguments */}
@@ -181,7 +180,7 @@ export default function AdminPage() {
                 htmlFor="image"
                 className="block text-sm font-medium text-gray-700"
               >
-                Upload Thumbnail
+                Upload Thumbnailllllllllll
               </label>
               <input
                 type="file"

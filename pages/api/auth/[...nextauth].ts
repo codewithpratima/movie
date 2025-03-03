@@ -48,7 +48,7 @@ export default NextAuth({
 
           console.log("✅ Authentication successful for:", user.email);
           return user;
-        } catch (error) {
+        } catch (error: any) {
           console.error("❌ Authentication error:", error.message);
           throw new Error(
             "Authentication failed. Please check your credentials."

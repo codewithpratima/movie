@@ -7,13 +7,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await dbConnect();
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   try {
-    await dbConnect();
-
     const { email, name, password } = req.body;
     if (!email || !name || !password) {
       return res.status(400).json({ error: "All fields are required" });

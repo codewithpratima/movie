@@ -204,7 +204,7 @@ export default function AdminPage() {
               {/* ✅ Fixed: No need for `onClick` here, submission is handled by `onSubmit` */}
               <button
                 type="submit"
-                className="bg-black py-3 hover:bg-red-700 text-white p-2 w-full"
+                className="bg-red-600 py-3  text-white p-2 w-full"
                 disabled={loading}
               >
                 {loading ? "Saving..." : "Save"}

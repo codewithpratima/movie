@@ -48,11 +48,8 @@ export default NextAuth({
 
           console.log("✅ Authentication successful for:", user.email);
           return user;
-<<<<<<< HEAD
-        } catch (error) {
-=======
         } catch (error: any) {
->>>>>>> d9a3a4883fdabd3dae90c806ae9c190721d8e418
+
           console.error("❌ Authentication error:", error.message);
           throw new Error(
             "Authentication failed. Please check your credentials."
@@ -72,8 +69,6 @@ export default NextAuth({
     secret: process.env.NEXTAUTH_SECRET,
   },
   secret: process.env.NEXTAUTH_SECRET,
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> d9a3a4883fdabd3dae90c806ae9c190721d8e418
+
+

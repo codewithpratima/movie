@@ -124,7 +124,6 @@ const MyDataTable = () => {
   //   }
   // };
 
-
   const scroll = (direction: "left" | "right") => {
     if (carouselRef.current) {
       const scrollAmount = 1338; // Adjusted for better scrolling
@@ -140,6 +139,17 @@ const MyDataTable = () => {
   //     carouselRef.current.scrollLeft += event.deltaY * 2; // Adjust multiplier for speed
   //   }
   // };
+
+  // const VideoList = ({ data }: { data: Movie[] }) => {
+  const videoRefs = useRef<HTMLVideoElement[]>([]);
+
+  const handlePlay = (index: number) => {
+    videoRefs.current.forEach((video, i) => {
+      if (i !== index && video) {
+        video.pause();
+      }
+    });
+  };
 
   return (
     <div className="relative">
@@ -215,36 +225,38 @@ const MyDataTable = () => {
           ◀
         </button>
 
-
         <div
-  ref={carouselRef}
-  className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory"
-  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-  // onWheel={(e) => {
-  //   e.preventDefault();
-  //   carouselRef.current?.scrollBy({ left: e.deltaY * 2, behavior: "smooth" });
-  // }}
->
-  <div className="flex gap-4 flex-nowrap">
-    {data?.map((movie: Movie, index) => (
-      <div
-        key={index}
-        className="flex flex-col min-w-[300px] w-[300px] gap-2 h-auto snap-center"
-      >
-        <video className="w-full h-[200px] object-cover rounded-2xl" controls>
-          <source src={movie.videoUrl} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <div>
-          <h1>{movie.name}</h1>
-          <p>{movie.singer[0]}</p>
-          <p>{movie.cast[0]}</p>
-          <p>{moment(movie.releaseDate).format("MMMM DD, YYYY")}</p>
+          ref={carouselRef}
+          className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          <div className="flex gap-4 flex-nowrap">
+            {data?.map((movie: Movie, index) => (
+              <div
+                key={index}
+                className="flex flex-col min-w-[300px] w-[300px] gap-2 h-auto snap-center"
+              >
+                <video
+                  ref={(el) => {
+                    if (el) videoRefs.current[index] = el;
+                  }}
+                  className="w-full h-[200px] object-cover rounded-2xl"
+                  controls
+                  onPlay={() => handlePlay(index)}
+                >
+                  <source src={movie.videoUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div>
+                  <h1>{movie.name}</h1>
+                  <p>{movie.singer[0]}</p>
+                  <p>{movie.cast[0]}</p>
+                  <p>{moment(movie.releaseDate).format("MMMM DD, YYYY")}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    ))}
-  </div>
-</div>
 
         <button
           onClick={() => scroll("right")}

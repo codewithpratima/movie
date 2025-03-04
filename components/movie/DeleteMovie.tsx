@@ -88,7 +88,7 @@ const MyDataTable = () => {
     try {
       const response = await fetch(`/api/movies/${id}`);
       const result: Movie = await response.json(); // Ensure TypeScript knows it's a Movie object
-  
+
       if (response.ok) {
         setEditData((editData: Movie | null) => ({
           ...editData,
@@ -97,10 +97,12 @@ const MyDataTable = () => {
           cast: result.cast || [],
           singer: result.singer || [],
           budget: result.budget || "",
-          releaseDate: result.releaseDate ? new Date(result.releaseDate) : new Date(),
+          releaseDate: result.releaseDate
+            ? new Date(result.releaseDate)
+            : new Date(),
           videoUrl: result.videoUrl || "",
         }));
-  
+
         showEditDialog(); // ✅ Open the modal inside `if`
       } else {
         // console.error("Error fetching movie:", result);
@@ -109,14 +111,13 @@ const MyDataTable = () => {
       console.error("Failed to fetch movie:", error);
     }
   }
-  
 
   async function handleUpdate() {
     if (!editData) return; // Ensure editData is not null
 
     try {
       const response = await fetch(`/api/movies?id=${editData._id}`, {
-        method: "PUT",  
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editData),
       });
@@ -132,6 +133,16 @@ const MyDataTable = () => {
       console.error("Error updating movie:", error);
     }
   }
+
+  const videoRefs = useRef<HTMLVideoElement[]>([]);
+
+  const handlePlay = (index: number) => {
+    videoRefs.current.forEach((video, i) => {
+      if (i !== index && video) {
+        video.pause();
+      }
+    });
+  };
 
   const columns: TableColumn<Movie>[] = [
     {
@@ -149,7 +160,7 @@ const MyDataTable = () => {
       selector: (row: Movie) => row.cast.join(", "), // join array to make it a string
       sortable: true,
     },
-   
+
     {
       name: "Budget",
       selector: (row: Movie) => row.budget.toString(), // convert to string if needed
@@ -162,9 +173,19 @@ const MyDataTable = () => {
     },
     {
       name: "Video",
-      cell: (row: Movie) =>
+      cell: (row: Movie, index: number) =>
         row.videoUrl ? (
-          <video width="200" height="300" className="m-5" controls>
+          <video
+            ref={(el) => {
+              if (el) videoRefs.current[index] = el;
+            }}
+            width="200"
+            height="300"
+            className="m-5 w-full h-[200px] object-cover rounded-2xl
+"
+            onPlay={() => handlePlay(index)}
+            controls
+          >
             <source src={row.videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

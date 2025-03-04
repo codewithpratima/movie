@@ -72,8 +72,8 @@ const MyDataTable = () => {
       });
 
       setData(mergedData);
+      console.log("Merged Data:", mergedData);
     } catch (error) {
-      
     } finally {
       setLoading(false);
     }
@@ -114,21 +114,32 @@ const MyDataTable = () => {
     },
   ];
   const carouselRef = useRef<HTMLDivElement>(null);
+  // const scroll = (direction: "left" | "right") => {
+  //   if (carouselRef.current) {
+  //     const scrollAmount = 400; // Adjust for faster scrolling
+  //     carouselRef.current.scrollBy({
+  //       left: direction === "left" ? -scrollAmount : scrollAmount,
+  //       behavior: "smooth",
+  //     });
+  //   }
+  // };
+
+
   const scroll = (direction: "left" | "right") => {
     if (carouselRef.current) {
-      const scrollAmount = 400; // Adjust for faster scrolling
+      const scrollAmount = 1338; // Adjusted for better scrolling
       carouselRef.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
       });
     }
   };
-  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
-    if (carouselRef.current) {
-      event.preventDefault();
-      carouselRef.current.scrollLeft += event.deltaY * 2; // Adjust multiplier for speed
-    }
-  };
+  // const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+  //   if (carouselRef.current) {
+  //     event.preventDefault();
+  //     carouselRef.current.scrollLeft += event.deltaY * 2; // Adjust multiplier for speed
+  //   }
+  // };
 
   return (
     <div className="relative">
@@ -203,23 +214,38 @@ const MyDataTable = () => {
         >
           ◀
         </button>
+
+
         <div
-          ref={carouselRef}
-          className="flex gap-4 overflow-x-scroll no-scrollbar scroll-smooth"
-          onWheel={handleWheel}
-        >
-          {data?.map((movie) => (
-            <video
-              width="200"
-              height="400"
-              className="object-cover rounded-2xl"
-              controls
-            >
-              <source src={movie.videoUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          ))}
+  ref={carouselRef}
+  className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory"
+  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+  // onWheel={(e) => {
+  //   e.preventDefault();
+  //   carouselRef.current?.scrollBy({ left: e.deltaY * 2, behavior: "smooth" });
+  // }}
+>
+  <div className="flex gap-4 flex-nowrap">
+    {data?.map((movie: Movie, index) => (
+      <div
+        key={index}
+        className="flex flex-col min-w-[300px] w-[300px] gap-2 h-auto snap-center"
+      >
+        <video className="w-full h-[200px] object-cover rounded-2xl" controls>
+          <source src={movie.videoUrl} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div>
+          <h1>{movie.name}</h1>
+          <p>{movie.singer[0]}</p>
+          <p>{movie.cast[0]}</p>
+          <p>{moment(movie.releaseDate).format("MMMM DD, YYYY")}</p>
         </div>
+      </div>
+    ))}
+  </div>
+</div>
+
         <button
           onClick={() => scroll("right")}
           className="absolute right-2 top-[85%] -translate-y-1/2 bg-black/50 p-3 rounded-full z-10"

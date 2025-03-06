@@ -11,12 +11,7 @@ import React from "react";
 
 import moment from "moment";
 import { useRouter } from "next/router";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Welcome to my website",
-  description: "Description of my website",
-};
+ 
 
 interface Movie {
   _id: string;
@@ -30,8 +25,23 @@ interface Movie {
 
 const MyDataTable = () => {
   const { data: session } = useSession();
-
+  const [query, setQuery] = useState("");
   const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent form submission refresh
+
+    // if (" ".trim() !== "") //only spaces candition false so it skips search operation
+    //if ("".trim()!=="") //only string =condition false
+
+    if ("query".trim() !== "") {
+      const netflixSearchUrl = `https://www.netflix.com/search?q=${encodeURIComponent(
+        query
+      )}`;
+      window.location.href = netflixSearchUrl; // Redirect to Netflix search page
+    }
+  };
+  
 
   const handleSignIn = () => {
     router.push("/auth");
@@ -114,33 +124,18 @@ const MyDataTable = () => {
     },
   ];
   const carouselRef = useRef<HTMLDivElement>(null);
-  // const scroll = (direction: "left" | "right") => {
-  //   if (carouselRef.current) {
-  //     const scrollAmount = 400; // Adjust for faster scrolling
-  //     carouselRef.current.scrollBy({
-  //       left: direction === "left" ? -scrollAmount : scrollAmount,
-  //       behavior: "smooth",
-  //     });
-  //   }
-  // };
+ 
 
   const scroll = (direction: "left" | "right") => {
     if (carouselRef.current) {
-      const scrollAmount = 1338; // Adjusted for better scrolling
+      const scrollAmount = 1338;  
       carouselRef.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
       });
     }
   };
-  // const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
-  //   if (carouselRef.current) {
-  //     event.preventDefault();
-  //     carouselRef.current.scrollLeft += event.deltaY * 2; // Adjust multiplier for speed
-  //   }
-  // };
-
-  // const VideoList = ({ data }: { data: Movie[] }) => {
+ 
   const videoRefs = useRef<HTMLVideoElement[]>([]);
 
   const handlePlay = (index: number) => {
@@ -172,6 +167,24 @@ const MyDataTable = () => {
             <h1 className="text-red-600 text-3xl font-bold">NETFLIX</h1>
           </Link>
           <div className="flex items-center gap-4">
+
+
+          <div className="relative w-10/12">
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              
+              name="query"
+           
+              placeholder=" Search for movies, TV shows, genres, and more"
+              className="bg-red-600 text-white px-2 py-2 rounded hover:bg-red-700"
+            />
+            
+          </form>
+          
+        </div>
             <select
               className="bg-black text-white px-4 py-2 border border-gray-500 rounded"
               value={language}

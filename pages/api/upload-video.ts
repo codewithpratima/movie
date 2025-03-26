@@ -5,7 +5,7 @@ import type { Fields, Files } from "formidable";
 
 import dbConnect from "../../lib/db";
 import { Video } from "../../models/Video";
-import { Movie } from "../../models/Movie";
+import { Movie } from "../../models/Product";
 import { Image } from "../../models/Image";
 
 // Configure Cloudinary

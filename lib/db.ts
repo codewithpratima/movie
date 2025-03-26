@@ -8,13 +8,11 @@ if (!MONGODB_URI) {
   );
 }
 
-// Extend Node.js global object to store the cached connection
 interface MongooseGlobal {
   conn: Connection | null;
   promise: Promise<Connection> | null;
 }
 
-// Use global cache to prevent multiple connections
 declare global {
   var mongooseGlobal: MongooseGlobal | undefined;
 }
@@ -40,7 +38,7 @@ async function dbConnect(): Promise<Connection> {
       .connect(MONGODB_URI, opts)
       .then((mongooseInstance) => {
         console.log("✅ MongoDB connected successfully");
-        return mongooseInstance.connection; // Extract the connection instance
+        return mongooseInstance.connection;
       });
   }
 

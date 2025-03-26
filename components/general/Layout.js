@@ -2,11 +2,14 @@ import { Fragment, useState, useEffect } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
-import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/20/solid";
+// import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/20/solid";
+// import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/solid";
 
 import {
   ClipboardDocumentListIcon,
   TrashIcon,
+  MagnifyingGlassIcon,
+  UserCircleIcon,
 } from "@heroicons/react/24/outline";
 
 const user = {
@@ -39,7 +42,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 import { useSession } from "next-auth/react";
-import tokenRefresh from "../../lib/tokenRefresh";
+// import tokenRefresh from "../../lib/tokenRefresh";
 
 export default function Layout({ children }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -49,14 +52,14 @@ export default function Layout({ children }) {
   const router = useRouter();
   const [tabs, SetTabss] = useState([
     {
-      name: "Add Movie",
+      name: "Add Products",
       code: "add-movie",
       href: "/admin/add-movie",
       icon: ClipboardDocumentListIcon,
       current: false,
     },
     {
-      name: "Delete Movie",
+      name: "Delete Products",
       code: "delete-movie",
       href: "/admin/delete-movie",
       icon: TrashIcon,

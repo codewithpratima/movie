@@ -18,32 +18,6 @@ export default function Auth() {
     );
   }, []);
 
-  // const login = useCallback(async () => {
-  //   try {
-  //     await axios.post("/api/auth/login", {
-  //       email,
-  //       password,
-  //     });
-  //     router.push("/");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, [email, password, router]);
-  // 8;
-
-  // const register = useCallback(async () => {
-  //   try {
-  //     await axios.post("/api/auth/signup", {
-  //       email,
-  //       name,
-  //       password,
-  //     });
-  //     await login();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, [email, name, password, login]);
-
   const login = useCallback(async () => {
     try {
       await signIn("credentials", {
@@ -74,15 +48,6 @@ export default function Auth() {
   return (
     <div className="relative netflix-bg h-full w-full bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/f268d374-734d-474f-ad13-af5ba87ef9fc/web/IN-en-20250210-TRIFECTA-perspective_92338d5d-6ccd-4b1a-8536-eb2b0240a55e_large.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
       <div className="bg-black w-full h-full lg:bg-opacity-50">
-        <nav>
-          <img
-            src="/images/logo.jpg"
-            alt="netflix"
-            width={100}
-            height={100}
-            className="bg-white"
-          />
-        </nav>
         <div className="flex justify-center ">
           <div className="bg-black px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-md bg-opacity-70">
             <h2 className="text-white text-4xl mb-8 font-semibold">
@@ -100,6 +65,7 @@ export default function Auth() {
                   value={name}
                 />
               )}
+
               <Input
                 label="email"
                 onChange={(ev: any) => {

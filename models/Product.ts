@@ -2,6 +2,7 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 
 export interface IProduct extends Document {
   name: string;
+  supplierName: string;
   category: "Spices" | "Grains" | "Electrical" | "Toys" | "Snacks";
   quantity: {
     amount: number;
@@ -18,6 +19,7 @@ export interface IProduct extends Document {
 const ProductSchema = new Schema<IProduct>(
   {
     name: { type: String, required: true },
+    supplierName: { type: String, required: true },
     category: {
       type: String,
       enum: ["Spices", "Grains", "Electrical", "Toys", "Snacks"],

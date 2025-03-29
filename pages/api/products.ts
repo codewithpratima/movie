@@ -10,7 +10,18 @@ export default async function handler(
 
   if (req.method === "GET") {
     try {
-      const products = await Product.find();
+      // Get the search term from query parameters
+      const { search } = req.query;
+
+      // Build the query object for MongoDB
+      const query: any = {};
+      if (search) {
+        // Use a regex for case-insensitive search
+        query.name = { $regex: new RegExp(search as string, "i") }; // 'i' for case-insensitive
+      }
+
+      // Fetch products based on the query
+      const products = await Product.find(query);
       return res.status(200).json(products);
     } catch (error) {
       return res.status(500).json({ error: "Failed to fetch products." });
@@ -18,6 +29,7 @@ export default async function handler(
   } else if (req.method === "POST") {
     const {
       name,
+      supplierName,
       category,
       quantity,
       purchasePrice,
@@ -28,22 +40,10 @@ export default async function handler(
       dateOfSale,
     } = req.body;
 
-    console.log(req.body, "request body");
-    if (
-      !name ||
-      !category ||
-      !quantity?.amount ||
-      !quantity?.unit ||
-      !purchasePrice ||
-      !sellingPrice ||
-      !stockAvailable
-    ) {
-      return res.status(400).json({ error: "Missing required fields" });
-    }
-
     try {
       const newProduct = new Product({
         name,
+        supplierName,
         category,
         quantity: {
           amount: Number(quantity.amount),
@@ -52,45 +52,17 @@ export default async function handler(
         purchasePrice: Number(purchasePrice),
         sellingPrice: Number(sellingPrice),
         stockAvailable: Number(stockAvailable),
-        expiryDate: expiryDate || null,
-        dateOfPurchase: dateOfPurchase || null,
-        dateOfSale: dateOfSale || null,
+        expiryDate: expiryDate,
+        dateOfPurchase: dateOfPurchase,
+        dateOfSale: dateOfSale,
       });
 
       await newProduct.save();
-      console.log(newProduct, "newproduct created");
       return res.status(201).json(newProduct);
     } catch (error) {
-      console.log(error, "errorr");
       return res.status(500).json({ error: "Failed to create the product" });
     }
-  }
-  // else if (req.method === "PUT") {
-  //   const { id } = req.query;
-  //   const { name, singer, cast, releaseDate, budget } = req.body;
-
-  //   if (!id || !name || !cast || !releaseDate || !budget) {
-  //     return res.status(400).json({ error: "Missing required fields" });
-  //   }
-
-  //   try {
-  //     const updatedProduct = await Product.findByIdAndUpdate(
-  //       id,
-  //       { name, singer, cast, releaseDate, budget },
-  //       { new: true }
-  //     );
-
-  //     if (!updatedProduct) {
-  //       return res.status(404).json({ error: "Product not found" });
-  //     }
-
-  //     return res.status(200).json(updatedProduct);
-  //   } catch (error) {
-  //     console.error(error);
-  //     return res.status(500).json({ error: "Failed to update the Product" });
-  //   }
-  // }
-  else if (req.method === "DELETE") {
+  } else if (req.method === "DELETE") {
     const { id } = req.query;
 
     if (!id) {

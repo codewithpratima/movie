@@ -32,29 +32,6 @@ const MyDataTable = () => {
 
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-        <nav className="absolute top-0 left-0 w-full flex justify-between p-5 z-10">
-          <Link href="/">
-            <h1 className="text-white text-3xl font-bold">Inventory App</h1>
-          </Link>
-          <div className="flex items-center gap-4">
-            <>
-              <button
-                onClick={() => signOut()}
-                className="bg-red-500 text-white px-4 py-2 rounded"
-              >
-                Sign Out
-              </button>
-            </>
-
-            <button
-              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-              onClick={() => handleSignIn()}
-            >
-              Login
-            </button>
-          </div>
-        </nav>
-
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
           <h2 className="text-4xl font-bold">Inventory App</h2>
           <p className="text-lg mt-2">

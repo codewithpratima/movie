@@ -10,6 +10,7 @@ import {
   IdentificationIcon,
 } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
+import Dashboard from "../../components/dash/Dashboard";
 // import tokenRefresh from "../../lib/tokenRefresh";
 
 function classNames(...classes) {
@@ -21,28 +22,20 @@ export default function Tab() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  // useEffect(() => {
-  //   refresh();
-  // }, []);
-
-  // async function refresh() {
-  //   await tokenRefresh(session);
-  // }
-
   const [pillTabs, setPillTabs] = useState([
     {
-      name: "Add Movie",
-      id: 4,
-      code: "add-movie",
-      href: "/admin/add-movie",
+      name: "Operations",
+      id: 2,
+      code: "delete-product",
+      href: "/admin/delete-product",
       icon: CalendarIcon,
       current: false,
     },
     {
-      name: "Delete Movie",
-      id: 5,
-      code: "delete-movie",
-      href: "/admin/delete-movie",
+      name: "Dashboard",
+      id: 3,
+      code: "dashboard",
+      href: "/admin/dashboard",
       icon: CalendarIcon,
       current: false,
     },
@@ -61,14 +54,16 @@ export default function Tab() {
 
     setPillTabs(updatedTabs);
 
-    if (tab == "add-movie") {
-      const AddMovie = dynamic(() => import("../../components/movie/AddMovie"));
-      setCurrentPage(<AddMovie />);
-    } else if (tab == "delete-movie") {
-      const DeleteMovie = dynamic(() =>
-        import("../../components/movie/DeleteMovie")
+    if (tab == "delete-product") {
+      const DeleteProduct = dynamic(() =>
+        import("../../components/dash/DeleteProduct")
       );
-      setCurrentPage(<DeleteMovie />);
+      setCurrentPage(<DeleteProduct />);
+    } else if (tab == "dashboard") {
+      const Dashboard = dynamic(() =>
+        import("../../components/dash/Dashboard")
+      );
+      setCurrentPage(<Dashboard />);
     }
   }, [router]);
 

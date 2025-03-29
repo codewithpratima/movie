@@ -11,6 +11,7 @@ export default async function handler(
     const { id } = req.query;
     const {
       name,
+      supplierName,
       category,
       quantity,
       purchasePrice,
@@ -21,15 +22,12 @@ export default async function handler(
       dateOfSale,
     } = req.body;
 
-    // if (!name || !sellingPrice || !purchasePrice || !quantity) {
-    //   return res.status(400).json({ error: "Missing required fields" });
-    // }
-
     try {
       const updatedProduct = await Product.findByIdAndUpdate(
         id,
         {
           name,
+          supplierName,
           category,
           quantity,
           purchasePrice,

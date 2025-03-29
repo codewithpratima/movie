@@ -2,13 +2,13 @@ import { Fragment, useState, useEffect } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
-// import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/20/solid";
-// import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/solid";
+import Navbar from "../Navbar";
 
 import {
   ClipboardDocumentListIcon,
   TrashIcon,
-  MagnifyingGlassIcon,
+  ChartBarIcon,
+  CogIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 
@@ -52,17 +52,17 @@ export default function Layout({ children }) {
   const router = useRouter();
   const [tabs, SetTabss] = useState([
     {
-      name: "Add Products",
-      code: "add-movie",
-      href: "/admin/add-movie",
-      icon: ClipboardDocumentListIcon,
+      name: "Operations",
+      code: "delete-product",
+      href: "/admin/delete-product",
+      icon: CogIcon,
       current: false,
     },
     {
-      name: "Delete Products",
-      code: "delete-movie",
-      href: "/admin/delete-movie",
-      icon: TrashIcon,
+      name: "Dashboard",
+      code: "dashboard",
+      href: "/admin/dashboard",
+      icon: ChartBarIcon,
       current: false,
     },
   ]);

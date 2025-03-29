@@ -4,7 +4,6 @@ import {
   LockClosedIcon,
   XCircleIcon,
   UserGroupIcon,
-  CurrencyRupeeIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -51,12 +50,11 @@ const Dashboard = () => {
         const totalProfit = products.reduce((total: number, product: any) => {
           const profitPerUnit = product.sellingPrice - product.purchasePrice;
           return total + profitPerUnit;
-          // * product.stockAvailable
         }, 0);
 
         setTotalProfit(totalProfit);
 
-        console.log("Total Profit:", totalProfit); // For debugging
+        console.log("Total Profit:", totalProfit);
         setTotalProfit(totalProfit);
       } catch (error) {
         console.error("Failed to fetch products:", error);

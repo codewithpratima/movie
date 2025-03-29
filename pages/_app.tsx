@@ -14,7 +14,7 @@ interface CustomAppProps extends AppProps {
 function App({ Component, pageProps }: CustomAppProps) {
   return (
     <SessionProvider session={pageProps.session}>
-      <Navbar />
+      {/* <Navbar /> */}
       <Component {...pageProps} />
     </SessionProvider>
   );

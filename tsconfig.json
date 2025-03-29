@@ -29,7 +29,7 @@
     "**/*.ts",
     "**/*.tsx",
     "next.config.js"
-  ],
+, "components/general/Layout.js"  ],
   "exclude": [
     "node_modules"
   ]

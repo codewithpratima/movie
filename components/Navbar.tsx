@@ -1,5 +1,5 @@
 // components/Navbar.js
-import Link from "next/link";
+
 import { useRouter } from "next/router";
 
 const Navbar = () => {
@@ -10,8 +10,10 @@ const Navbar = () => {
   };
   return (
     <nav className="bg-gray-800 text-white px-4 py-3 flex items-center justify-between">
-      <div className="text-lg font-bold">
-        <h1>Admin Panel</h1>
+      <div className=" font-bold">
+        <span className="text-blue-300 text-2xl font-extrabold">
+          Inventory App
+        </span>
       </div>
       <div className="space-x-4">
         <button

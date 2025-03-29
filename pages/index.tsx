@@ -1,24 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-
-import { signOut } from "next-auth/react";
 
 import React from "react";
 
-import moment from "moment";
 import { useRouter } from "next/router";
+import Navbar from "@/components/Navbar";
 
 const MyDataTable = () => {
   const router = useRouter();
 
-  const handleSignIn = () => {
-    router.push("/auth");
-  };
-
   return (
     <div className="relative">
+      <Navbar />
       <div className="relative w-full h-screen bg-black">
         <div className="absolute inset-0">
           <Image
